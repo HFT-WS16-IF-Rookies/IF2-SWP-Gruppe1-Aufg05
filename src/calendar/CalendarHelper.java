@@ -4,65 +4,58 @@
  */
 package calendar;
 
-import de.hft_stuttgart.unittest.loader.Skeleton;
 import java.util.Calendar;
+import java.util.GregorianCalendar;
 
-@Skeleton
-public class CalendarHelper
-{
+public class CalendarHelper {
 
-    static
-    {
-        System.err.println("Please call injectClass(\"calendar.CalendarHelper\"), you've imported a skeleton");
+    public static void main(String[] args) {
+        Calendar start = createCalendar(5, 8, 2017);
+        Calendar expected = createCalendar(16, 8, 2017);
+        Calendar result = getDayOf(start, 0, 12);
+
+        System.out.println(result.getTime());
     }
 
-    static final boolean $assertionsDisabled = true;
-
-    public CalendarHelper()
-    {
-        // Roughly 1 lines of implementation
-        throw new UnsupportedOperationException("Not yet implemented");
+    public static Calendar createCalendar(int day, int month, int year) {
+        GregorianCalendar ca = new GregorianCalendar(year, (month - 1), day);
+        return ca;
     }
 
-    public static void main(String[] args)
-    {
-        // Roughly 23 lines of implementation
-        throw new UnsupportedOperationException("Not yet implemented");
+    public static int getCalWeekYear(Calendar cal) {
+        return cal.getWeekYear();
     }
 
-    public static Calendar createCalendar(int day, int month, int year)
-    {
-        // Roughly 2 lines of implementation
-        throw new UnsupportedOperationException("Not yet implemented");
+    public static Calendar getDayOf(Calendar month, int day, int count) {
+        int monat = month.get(Calendar.MONTH);
+        int jahr = month.get(Calendar.YEAR);
+        int start = 1 + day;
+        month = createCalendar(start, monat + 1, jahr);
+        for (int i = 1; i < count; i++) {
+            if (month.get(Calendar.DAY_OF_WEEK) == Calendar.SATURDAY
+                    || month.get(Calendar.DAY_OF_WEEK) == Calendar.SUNDAY) {
+                i--;
+            }
+            if (month.get(Calendar.DAY_OF_WEEK) != Calendar.SATURDAY
+                    || month.get(Calendar.DAY_OF_WEEK) != Calendar.SUNDAY) {
+                System.out.println(month.get(Calendar.DAY_OF_WEEK));
+                int ubergabe = month.get(Calendar.DAY_OF_MONTH);
+                month = createCalendar(ubergabe + 1, monat + 1, jahr);
+            }
+        }
+        return month;
     }
 
-    public static int getCalWeekYear(Calendar cal)
-    {
-        // Roughly 1 lines of implementation
-        throw new UnsupportedOperationException("Not yet implemented");
+    public static int getThursday(Calendar cal) {
+        return cal.get(Calendar.THURSDAY);
     }
 
-    public static Calendar getDayOf(Calendar month, int day, int count)
-    {
-        // Roughly 19 lines of implementation
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public static int getThursday(Calendar cal)
-    {
-        // Roughly 1 lines of implementation
-        throw new UnsupportedOperationException("Not yet implemented");
-    }
-
-    public static Calendar[] getDayRange(Calendar start, Calendar pauseFrom, Calendar pauseTo, int count, int step)
-    {
+    public static Calendar[] getDayRange(Calendar start, Calendar pauseFrom, Calendar pauseTo, int count, int step) {
         // Roughly 17 lines of implementation
         throw new UnsupportedOperationException("Not yet implemented");
     }
 
-    public static int getCalWeekWeek(Calendar cal)
-    {
-        // Roughly 1 lines of implementation
-        throw new UnsupportedOperationException("Not yet implemented");
+    public static int getCalWeekWeek(Calendar cal) {
+        return cal.get(Calendar.WEEK_OF_MONTH);
     }
 }
